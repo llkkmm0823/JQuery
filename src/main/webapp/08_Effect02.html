@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>08_Effect02.html</title>
+    <style type = "text/css">
+        span{font-size: 180%;font-weight: bold;display: none;}
+    </style>
+    <script src="script/jquery-3.6.4.js"></script>
+    <script type="text/javascript">
+        
+        /*
+        var flag = false;
+        $(function(){
+            $('button:eq(0)').click(function(){
+                if(flag==false){
+                    $('span:first').show(500,function(){});
+                    flag==false;
+                }else{
+                    $('span:first').hide(500);
+                    flag==false;
+                }
+            });
+        });
+        */
+        $(function(){
+            $('button:eq(0)').click(function(){
+                $('span:first').toggle(1000,function(){
+                    $(this).css('background','orange');
+                }); 
+            });
+            $('button:eq(1)').click(function(){
+                $('span:last').toggle(1000,function(){
+                    $(this).css('background','yellowgreen');
+                });
+            });
+        });
+
+</script>
+</head>
+<body>
+    <button>Show It</button> 
+    <button>Hide It</button>
+    <span>안녕하세요.</span>
+    <br>
+    <button>Show It / Hide It</button>
+    <span>반갑습니다.</span>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>22_ImageControl06.html</title>
+    <style type = "text/css">
+img{width: 600px;height: 400px;}
+#view{position: relative;width: 600px;height: 400px;margin: 0 auto;overflow: hidden;}
+#imgs{position:absolute;width: 4800px; height: 400px;left:0;top:0;}
+
+#remote{position:relative;width: 200px;height: 50px; top:350px;margin: 0 auto;text-align: center;}
+
+#btn{position:relative;width:35px;height:35px;border-radius: 50%;margin:0 auto;background: white;margin-top:10px;text-align: center;font-size: 150%;padding-left: 3px;cursor: pointer;}
+    </style>
+    <script src="script/jquery-3.6.4.js"></script>
+    <script type="text/javascript">
+    //버튼을 remote 정중앙에 위치시키고 한 번 클릭하면 자동이동, 또 한번 클릭하면 일시정지로 버튼의 기능을 코딩
+    var flag=false;
+    var imgNum=0;
+    var timer;
+    $(function(){
+        $('#btn').click(function(){
+        if(flag==false){
+            $(this).html('■');
+            timer=setInterval(function(){
+                flag=true;
+                imgNum++;
+                if(imgNum>7)imgNum=0;
+                var dist = imgNum*-600
+                $('#imgs').animate({left:dist},300);
+            },1000)
+                }else{
+                flag=false;
+                clearInterval(timer);
+                $(this).html('▶');
+                } 
+        });
+    });
+    </script>  
+</head>
+<body>
+    <div id="view">
+        <div id="imgs"><img src="images/Koala.jpg"><img src="images/Chrysanthemum.jpg"><img src="images/Desert.jpg"><img src="images/Hydrangeas.jpg"><img src="images/Jellyfish.jpg"><img src="images/Lighthouse.jpg"><img src="images/Penguins.jpg"><img src="images/Tulips.jpg">
+        </div>
+        <div id="remote">
+            <div id="btn">▶</div>
+        </div>
+</body>
+</html>

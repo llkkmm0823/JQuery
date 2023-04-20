@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>20230411_화면설계평가_이경민.html</title>
+    <style type = "text/css">
+img{width: 600px;height: 400px;}
+#view{position: relative;width: 600px;height: 400px;margin: 0 auto;border: 1px dashed black;overflow: hidden;}
+#imgs{position:absolute;width: 4800px; height: 400px;left:0;top:0;border:1px dashed red;}
+
+
+#currentNum{position:absolute;width: 100px;height: 40px; top:10px;right:0px;text-align: right;padding-right:20px;line-height: 40px;color:white;font-weight: bold;font-size: 140%;}
+
+#remote{position:relative;width: 400px;height: 50px; border: 2px solid white; top:350px;margin: 0 auto;}
+
+#list{float:left; position:relative;width: 400px;height: 50px;margin: 0 auto;}
+ul{list-style: none;margin: 0;padding: 0;display: inline-block;}
+li{float:left; width: 20px;height: 20px;background: white;border-radius: 50%;margin: 15px 4px; font-size: 90%; font-weight: bold;text-align: center;cursor: default;border:1px solid black;}
+
+
+#lbutton{float:left;width: 20px;height: 20px;background: white;border-radius: 50%;margin: 15px; font-size: 90%; font-weight: bold;text-align: center;cursor: default;border:1px solid black;left:10;bottom:0;}
+#rbutton{float:right; width: 20px;height: 20px;background: white;border-radius: 50%;margin: 15px; font-size: 100%; font-weight: bold;text-align: center;cursor: default;border:1px solid black;right:0;}
+
+#btn{float:right;width: 20px;height: 20px;background: white;border-radius: 50%;margin: 15px; font-size: 90%; font-weight: bold;text-align: center;cursor: default;border:1px solid black;right:0;bottom:0;}
+
+
+
+.selected{background: black; color:white;border:1px solid white;}
+    </style>
+    <script src="script/jquery-3.6.4.js"></script>
+    <script type="text/javascript">
+    $(function(){
+       //8개의 배너가 1번부터 8번까지의 버튼으로 클릭하고 볼 수 있게 리모컨을 제작하고 동작하게 하시오.
+        $('li').click(function(){
+            if(flag==true)return;
+                var idx=$(this).index();
+                $('#currentNum').html((idx+1)+"/8");
+                var dist = idx*-600
+                $('#imgs').animate({left:dist},300);
+                $('li').removeClass('selected');
+                $('li').eq(idx).addClass('selected');
+                
+            });
+            $('li:first').addClass('selected');
+
+        var imgNum=0;
+        
+        $('#lbutton').click(function(){
+            if(flag==true)return;
+            $('li').removeClass('selected');
+            if(imgNum==0)return;
+            imgNum--;
+            $('#imgs').animate({left:imgNum*-600},300);
+            $('#currentNum').html((imgNum+1)+"/8");
+            $('li').eq(imgNum).addClass('selected');
+        });
+        $('#rbutton').click(function(){
+            if(flag==true)return;
+            $('li').removeClass('selected');
+            if(imgNum==7)imgNum=-1;
+            imgNum++;
+            $('#imgs').animate({left:imgNum*-600},300);
+            $('#currentNum').html((imgNum+1)+"/8");
+            $('li').eq(imgNum).addClass('selected');
+        });
+        $('li').removeClass('selected');
+        $('li:first').addClass('selected');
+        var flag=false;
+        var timer;
+        $('#btn').click(function(){
+        if(flag==false){
+
+            $(this).html('■');
+            timer=setInterval(function(){
+                flag=true;
+                imgNum++;
+                if(imgNum>7)imgNum=0;
+                var dist = imgNum*-600
+                $('#imgs').animate({left:dist},300);
+                $('li').eq(imgNum).addClass('selected');
+                $('#currentNum').html((imgNum+1)+"/8");
+                $('li').eq(imgNum-1).removeClass('selected');
+            },1000)
+                }else{
+                flag=false;
+                clearInterval(timer);
+                $(this).html('▶');
+                $('li').eq(imgNum).addClass('selected');} 
+            
+        }); 
+    });
+
+    </script>
+</head>
+<body>
+    <div id="view">
+        <div id="imgs"><img src="images/Koala.jpg"><img src="images/Chrysanthemum.jpg"><img src="images/Desert.jpg"><img src="images/Hydrangeas.jpg"><img src="images/Jellyfish.jpg"><img src="images/Lighthouse.jpg"><img src="images/Penguins.jpg"><img src="images/Tulips.jpg">
+        </div>
+        <div id="currentNum">1/8</div>
+        <div id="remote">
+            
+            <div id="list">
+                <div id="lbutton">◁</div>
+                <ul>
+                    <li>1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><li>7</li><li>8</li>
+                </ul>
+                <div id="btn">▶</div>
+                <div id="rbutton">▷</div>
+            </div>
+            
+        </div>
+</body>
+</html>
